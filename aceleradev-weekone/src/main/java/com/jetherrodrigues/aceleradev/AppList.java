@@ -11,7 +11,9 @@ import java.util.Set;
  *
  */
 public class AppList {
-
+	private static List<Integer> pares = new ArrayList<Integer>();
+	private static List<Integer> impares = new ArrayList<Integer>();
+	
 	public static void main(String[] args) {
 		/**
 		 * List of fruits
@@ -50,6 +52,45 @@ public class AppList {
 		System.out.println(">> Produtos: ");
 		for (String string : produtos) {
 			System.out.println(string);
+		}
+		
+		/**
+		 * pares e impares
+		 */
+		AppList.preencheListasImparesEPares(1000);
+		System.out.println(pares);
+		System.out.println(impares);
+		
+		/**
+		 * simple list
+		 */
+		AppList.createSimpleList(1000);
+	}
+	
+	/**
+	 * cria uma lista simples
+	 * @param tam
+	 */
+	private static void createSimpleList(int tam) {
+		List<Integer> lista = new ArrayList<Integer>();
+		for (int j = 0; j < tam; j++) {
+			lista.add(j);
+		}
+		System.out.println(lista);
+	}
+
+	/**
+	 * preenche lista com pares e ímpares
+	 * @param tam
+	 */
+	private static void preencheListasImparesEPares(int tam) {
+		for (int i = 0; i < tam; i++) {
+			if(i % 2 == 0) {
+				pares.add(i);
+			}
+			else {
+				impares.add(i);
+			}
 		}
 	}
 }
