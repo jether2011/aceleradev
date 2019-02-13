@@ -11,6 +11,7 @@ public class TesteCalculadora {
 		Calculadora calculadora = new Calculadora();
 		
 		System.out.println(calculadora.calcula(2, 2, new Soma()));
+		System.out.println(calculadora.calcula(2, 2, (a, b) -> a + b));
 		System.out.println(calculadora.calcula(2, 2, new Subtracao()));
 		System.out.println(calculadora.calcula(2, 2, new Multiplicacao()));
 		System.out.println(calculadora.calcula(2, 2, new Divisao()));
