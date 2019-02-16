@@ -49,8 +49,12 @@ public final class Time implements Serializable {
 	}
 
 	public Jogador retornaArtilheiroDoTime() {
-		return this.jogadores.stream().filter(j -> j.retornaSomaGoals() > 0)
-				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed()).limit(1).findAny().get();
+		Comparator<Jogador> artilheiro = Comparator.comparing(Jogador::retornaSomaGoals);
+		
+		return this.jogadores.stream()
+				.filter(j -> j.retornaSomaGoals() > 0)
+				.max(artilheiro)
+				.orElseThrow(() -> new IllegalStateException("Não foi possivel retornar artilheiro."));
 	}
 
 	public List<Jogador> retornaListaJogadoresOrdenadoPorArtilharia() {
