@@ -1,12 +1,10 @@
 package com.jetherrodrigues.aceleradev.weektwo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,7 +27,6 @@ import com.jetherrodrigues.aceleradev.weektwo.jogofutebol.Time;
 public class TesteTime {
 
 	private final Map<String, Time> times = new HashMap<>();
-	private final List<Jogador> jogadores = new ArrayList<Jogador>();
 	
 	@BeforeAll
 	public void setup() {
@@ -62,10 +59,6 @@ public class TesteTime {
 		
 		times.put("PFC", pfc);
 		times.put("SPFC", spfc);
-		
-		jogadores.addAll(jogadoresPFC);
-		jogadores.addAll(jogadoresSPFC);
-		
 	}
 	
 	@Test
@@ -121,23 +114,19 @@ public class TesteTime {
 		final int esperado = 3;
 		final int paraPedirMusicaFantastico = 3;
 		final Predicate<Jogador> musicaFantastico = j -> j.retornaSomaGoals() >= paraPedirMusicaFantastico;
-		
+		final Time spfc = times.get("SPFC");
 		Assertions.assertEquals(
 				esperado, 
-				this.jogadores.stream().filter(musicaFantastico).count()
+				spfc.getJogadores().stream().filter(musicaFantastico).count()
 		);
 	}
 	
 	@Test
 	@DisplayName("Agrupe os jogadores pela posição")
 	public void validaAgrupamentoPorPosicao() {
-		final int esperado = 4;
-		
-		Assertions.assertEquals(
-				esperado, 
-				this.jogadores.stream().collect(
-						Collectors.groupingBy(Jogador::getPosicao)
-				).size()
-		);
+		final int esperado = 3;
+		Time spfc = times.get("SPFC");
+		Assertions.assertEquals(esperado, spfc.retornaMapaPorPosicao()
+				.get(Posicao.ATACANTE).size());
 	}
 }

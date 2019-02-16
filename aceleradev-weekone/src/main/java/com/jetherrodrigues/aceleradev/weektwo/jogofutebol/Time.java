@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -48,16 +49,16 @@ public final class Time implements Serializable {
 	}
 
 	public Jogador retornaArtilheiroDoTime() {
-		return this.jogadores.stream()
-				.filter(j -> j.retornaSomaGoals() > 0)
-				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed())
-				.limit(1).findAny().get();
+		return this.jogadores.stream().filter(j -> j.retornaSomaGoals() > 0)
+				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed()).limit(1).findAny().get();
 	}
-	
+
 	public List<Jogador> retornaListaJogadoresOrdenadoPorArtilharia() {
-		return this.jogadores.stream()
-				.filter(j -> j.retornaSomaGoals() > 0)
-				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed())
-				.collect(Collectors.toList());
+		return this.jogadores.stream().filter(j -> j.retornaSomaGoals() > 0)
+				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed()).collect(Collectors.toList());
 	}
+
+	public Map<Posicao, List<Jogador>> retornaMapaPorPosicao() {
+		return jogadores.stream().collect(Collectors.groupingBy(Jogador::getPosicao));
+	};
 }
