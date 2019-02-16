@@ -51,15 +51,13 @@ public final class Time implements Serializable {
 		return this.jogadores.stream()
 				.filter(j -> j.retornaSomaGoals() > 0)
 				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed())
-				.limit(1)
-				.findAny().get();
+				.limit(1).findAny().get();
 	}
 	
-	public List<Jogador> retornaListaJogadoresPorArtilharia() {
+	public List<Jogador> retornaListaJogadoresOrdenadoPorArtilharia() {
 		return this.jogadores.stream()
-				.filter(j -> j.retornaSomaGoals() >= 0)
+				.filter(j -> j.retornaSomaGoals() > 0)
 				.sorted(Comparator.comparing(Jogador::retornaSomaGoals).reversed())
 				.collect(Collectors.toList());
 	}
-	
 }
