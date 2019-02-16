@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -33,6 +35,8 @@ public class TesteTime {
 	public void setup() {
 		List<Jogador> jogadoresSPFC = Arrays.asList(
 				new Jogador.Builder().usandoNome("Jether").naPosicao(Posicao.ATACANTE).daCidade("Lorena").doPais("Brasil").build().adicionarGoal(5),
+				new Jogador.Builder().usandoNome("Jether2").naPosicao(Posicao.ATACANTE).daCidade("Lorena").doPais("Brasil").build().adicionarGoal(2),
+				new Jogador.Builder().usandoNome("Jether3").naPosicao(Posicao.ATACANTE).daCidade("Lorena").doPais("Brasil").build().adicionarGoal(10),
 				new Jogador.Builder().usandoNome("Denise").naPosicao(Posicao.ZAGUEIRO).daCidade("São José dos Campos").doPais("Brasil").build(),
 				new Jogador.Builder().usandoNome("Bia").naPosicao(Posicao.GOLEIRO).daCidade("Canas").doPais("Brasil").build(),
 				new Jogador.Builder().usandoNome("Isa").naPosicao(Posicao.LATERAL_ESQUERDA).daCidade("Taubaté").doPais("Brasil").build().adicionarGoal(6)
@@ -65,15 +69,17 @@ public class TesteTime {
 	}
 	
 	@Test
+	@DisplayName("Quem é o artilheiro do time SPFC")
 	public void qualArtilheiroDoTimeSpfc() {
 		final Time spfc = times.get("SPFC");
-		final String artilheiroEsperado = "Isa";
+		final String artilheiroEsperado = "Jether3";
 		final String artilheiroRetornado = spfc.retornaArtilheiroDoTime().getNome();
 		
 		Assertions.assertEquals(artilheiroEsperado, artilheiroRetornado);
 	}
 	
 	@Test
+	@DisplayName("Quem é o artilheiro do time PFC")
 	public void qualArtilheiroDoTimePfc() {
 		final Time spfc = times.get("PFC");
 		final String artilheiroEsperado = "Eliabe";
@@ -83,25 +89,55 @@ public class TesteTime {
 	}
 	
 	@Test
+	@DisplayName("Criando Time com nome null.")
 	public void criandoTimeComNomeNull() {
 		Executable timeExecutable = () -> new Time(null);
+		
     	Assertions.assertThrows(NullPointerException.class, timeExecutable);
 	}
 	
 	@Test
+	@DisplayName("Tentanto alterar uma lista imutável.")
 	public void tentandoAlterarUmaListaImutable() {
 		Executable timeExecutable = () -> times.get("PFC").getJogadores().clear();
+		
     	Assertions.assertThrows(UnsupportedOperationException.class, timeExecutable);
 	}
 	
 	@Test
-	public void validaListaDosJogadoresQuePodemPedirMusicaNoFantastico() {
+	@DisplayName("Ordene os jogadores pelo número de gols.")
+	public void retornaListaJogadoresOrdenadoPorArtilharia() {
 		final int esperado = 2;
+		
+		Assertions.assertEquals(
+				esperado, 
+				times.get("PFC").retornaListaJogadoresOrdenadoPorArtilharia().size()
+		);
+	}
+	
+	@Test
+	@DisplayName("Quais jogadores têm direito ao gol no fantástico?")
+	public void validaListaDosJogadoresQuePodemPedirMusicaNoFantastico() {
+		final int esperado = 3;
 		final int paraPedirMusicaFantastico = 3;
 		final Predicate<Jogador> musicaFantastico = j -> j.retornaSomaGoals() >= paraPedirMusicaFantastico;
+		
 		Assertions.assertEquals(
 				esperado, 
 				this.jogadores.stream().filter(musicaFantastico).count()
+		);
+	}
+	
+	@Test
+	@DisplayName("Agrupe os jogadores pela posição")
+	public void validaAgrupamentoPorPosicao() {
+		final int esperado = 4;
+		
+		Assertions.assertEquals(
+				esperado, 
+				this.jogadores.stream().collect(
+						Collectors.groupingBy(Jogador::getPosicao)
+				).size()
 		);
 	}
 }
