@@ -26,6 +26,9 @@ public final class Time implements Serializable {
 	}
 
 	public void adicionarJogador(Jogador jogador) {
+		if (this.jogadores.size() > 22) {
+			throw new TimeCompletoException("Número de jogadores de um time excedido.");
+		}
 		this.jogadores.add(Objects.requireNonNull(jogador));
 	}
 
