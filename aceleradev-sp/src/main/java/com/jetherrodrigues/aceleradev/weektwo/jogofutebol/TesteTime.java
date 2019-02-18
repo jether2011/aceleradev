@@ -29,8 +29,8 @@ public class TesteTime {
 		/**
 		 * Times
 		 */
-		Time spfc = new Time("São Paulo Futebol Clube");
-		Time pfc = new Time("Palmeiras Futebol Clube");
+		Time spfc = Time.of("São Paulo Futebol Clube");
+		Time pfc = Time.of("Palmeiras Futebol Clube");
 		
 		jogadoresSPFC.forEach(j -> {
 			spfc.adicionarJogador(j);

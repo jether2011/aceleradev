@@ -40,6 +40,10 @@ public final class Time implements Serializable {
 	public List<Jogador> getJogadores() {
 		return Collections.unmodifiableList(this.jogadores);
 	}
+	
+	public static final Time of(String nome) {
+		return new Time(Objects.requireNonNull(nome, "O nome do Time é obrigatório."));
+	}
 
 	@Override
 	public String toString() {
