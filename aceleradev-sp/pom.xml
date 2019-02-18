@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jetherrodrigues</groupId>
-	<artifactId>aceleradev-weekone</artifactId>
+	<artifactId>aceleradev-sp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>aceleradev-weekone</name>
+	<name>aceleradev-sp</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
