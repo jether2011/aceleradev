@@ -84,7 +84,7 @@ public class TesteTime {
 	@Test
 	@DisplayName("Criando Time com nome null.")
 	public void criandoTimeComNomeNull() {
-		Executable timeExecutable = () -> new Time(null);
+		Executable timeExecutable = () -> Time.of(null);
 		
     	Assertions.assertThrows(NullPointerException.class, timeExecutable);
 	}
