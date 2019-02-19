@@ -21,11 +21,12 @@ public final class Time implements Serializable {
 	private String nome;
 	private List<Jogador> jogadores = new ArrayList<Jogador>();
 
-	public Time(String nome) {
-		super();
-		this.nome = Objects.requireNonNull(nome);
+	public static final Time of(String nome) {
+		Time time = new Time();
+		time.nome = Objects.requireNonNull(nome, "O nome do Time é obrigatório.");
+		return time;
 	}
-
+	
 	public void adicionarJogador(Jogador jogador) {
 		if (this.jogadores.size() > 22) {
 			throw new TimeCompletoException("Número de jogadores de um time excedido.");
@@ -41,10 +42,6 @@ public final class Time implements Serializable {
 		return Collections.unmodifiableList(this.jogadores);
 	}
 	
-	public static final Time of(String nome) {
-		return new Time(Objects.requireNonNull(nome, "O nome do Time é obrigatório."));
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
