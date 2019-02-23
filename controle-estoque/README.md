@@ -45,16 +45,13 @@ Exemplo Response:
 
 `@DELETE - /{id}`
 
-Exemplo Body:
+Exemplo Response:
 
 ```json
-[
-	{
-	 	"id": 1,
-	 	"nome": "nome",
-	 	"quantidade": 1
-	}
-]
+{
+	"code": 200,
+	"message": "OK"
+}
 ```
 
 
